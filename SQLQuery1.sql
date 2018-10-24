@@ -1,0 +1,1 @@
+﻿INSERT INTO PersonInfo (FirstName, MiddleName, LastName, Phone, Photo, Description, Autor, Birthday) VALUES (FirstName, MiddleName, LastName, Phone, Photo, Description, Autor, Birthday)
