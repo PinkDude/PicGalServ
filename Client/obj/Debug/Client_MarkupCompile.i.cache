@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\App.xaml
-11151548125
+51511524536
 
-10867707291
+171379818462
 15-1715228846
-MainWindow.xaml;
+MainWindow.xaml;UserControls\AutorById.xaml;UserControls\Pic.xaml;UserControls\Picture.xaml;UserControls\PictureGrid.xaml;
 
 True
 

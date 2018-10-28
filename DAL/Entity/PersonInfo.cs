@@ -23,22 +23,6 @@ namespace DAL.Entity
 
         public DateTime? Birthday { get; set; }
 
-        public override void MapFromDataReader(IDataReader reader)
-        {
-            this.Id = (int)reader[0];
-            this.FirstName = reader[1].ToString();
-            this.MiddleName = reader[2].ToString();
-            this.LastName = reader[3].ToString();
-            this.Phone = reader[4].ToString();
-            this.Photo = reader[5].ToString();
-            this.Description = reader[6].ToString();
-
-            if (!DBNull.Value.Equals(reader[7]))
-                this.Autor = (bool)reader[7];
-
-            this.Birthday = !DBNull.Value.Equals(reader[8]) ? (DateTime?)reader[8] : null;
-        }
-
         public override IEnumerable<string> GetListOfFields()
         {
             List<string> ListOfFields = new List<string>

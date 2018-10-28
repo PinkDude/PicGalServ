@@ -9,6 +9,7 @@ using DAL.Entity;
 using AutoMapper;
 using System.Data;
 using BLL.Mapping;
+using BLL.DTO;
 
 namespace BLL.Service
 {
@@ -46,6 +47,10 @@ namespace BLL.Service
                                 com += AndOr + par[i];
                             }
                         }
+
+                        //com += $" OFFSET {getModel.Skip} ROWS";
+                        //com += $" FETCH NEXT {getModel.Take} ROWS ONLY";
+
                         command.CommandText = com;
                         using (SqlDataReader reader = await command.ExecuteReaderAsync())
                         {
@@ -128,7 +133,7 @@ namespace BLL.Service
             }
         }
 
-        public async Task<T> Create<T> (T item) where T : CommonEntity
+        public async Task<T> Create<T>(T item) where T : CommonEntity
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
@@ -161,7 +166,7 @@ namespace BLL.Service
             return item;
         }
 
-        public async Task<T> Update<T> (T item) where T: CommonEntity
+        public async Task<T> Update<T>(T item) where T : CommonEntity
         {
             using (SqlConnection connection = new SqlConnection(conn))
             {
@@ -175,7 +180,7 @@ namespace BLL.Service
                         List<string> listNameFields = (List<string>)item.GetListOfFields();
                         List<string> listFields = (List<string>)item.GetFields();
 
-                        for (int i = 0, j = 0; i < listNameFields.Count && j < listFields.Count; i++ , j++)
+                        for (int i = 0, j = 0; i < listNameFields.Count && j < listFields.Count; i++, j++)
                         {
                             com += $"{listNameFields[i]} = '{listFields[j]}'";
                             if (i != listNameFields.Count - 1 || j != listFields.Count - 1)
@@ -241,12 +246,20 @@ namespace BLL.Service
                     Name = reader[1].ToString(),
                     AutorId = (int)reader[2],
                     Description = reader[3].ToString(),
-                    Date = (DateTime)reader[4],
                     GenreId = (int)reader[5],
-                    PicturePath = reader[6].ToString()
+                    PicturePath = reader[6].ToString(),
+                    ParentId = !DBNull.Value.Equals(reader[8]) ? (int?)reader[8] : null
                 };
+
+                if (!DBNull.Value.Equals(reader[4]))
+                    res.Date = (DateTime)reader[4];
+
+                if (!DBNull.Value.Equals(reader[7]))
+                    res.Status = (bool)reader[7];
+
                 return res as T;
-            }
+            };
+
             return null;
         }
     }

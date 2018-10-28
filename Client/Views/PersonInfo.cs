@@ -8,6 +8,8 @@ namespace Client.Views
 {
     public class PersonInfo
     {
+        public int Id { get; set; }
+
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }
@@ -23,5 +25,10 @@ namespace Client.Views
         public bool Autor { get; set; }
 
         public DateTime? Birthday { get; set; }
+
+        public string FullName { get
+            {
+                return $"{FirstName} {LastName} {MiddleName}";
+            } }
     }
 }

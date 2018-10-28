@@ -19,11 +19,6 @@ namespace DAL.Entity
             throw new NotImplementedException();
         }
 
-        public virtual void MapFromDataReader(IDataReader reader)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual IEnumerable<string> GetFieldsForSearch()
         {
             throw new NotImplementedException();

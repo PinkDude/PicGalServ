@@ -1,0 +1,26 @@
+﻿<UserControl x:Class="Client.UserControls.Picture"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Client.UserControls"
+             mc:Ignorable="d" Loaded="UserControl_Loaded">
+    <Grid>
+        <Grid Background="#FFA57DB8">
+            <Image x:Name="Picture1" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Stretch="UniformToFill" MaxWidth="543" MaxHeight="348"/>
+            <TextBox x:Name="Name" Height="23" Margin="758,49,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Background="{x:Null}" HorizontalAlignment="Right" IsReadOnly="True"/>
+            <Label Content="Название:" HorizontalAlignment="Right" Margin="0,49,315,0" VerticalAlignment="Top" Width="76"/>
+            <Label Content="Автор:" HorizontalAlignment="Right" Margin="0,141,315,0" VerticalAlignment="Top" Width="76"/>
+            <Label Content="Жанр:" HorizontalAlignment="Right" Margin="0,83,315,0" VerticalAlignment="Top" Width="76"/>
+            <TextBox x:Name="Autor" HorizontalAlignment="Right" Height="65" Margin="0,172,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="290" Background="{x:Null}" IsReadOnly="True"/>
+            <TextBox x:Name="Genre" Height="23" Margin="758,83,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Background="{x:Null}" HorizontalAlignment="Right" IsReadOnly="True"/>
+            <TextBox x:Name="Description" Margin="10,403,10,21" TextWrapping="Wrap" Background="{x:Null}" IsReadOnly="True"/>
+            <Label Content="Дата:" HorizontalAlignment="Right" Margin="0,114,315,0" VerticalAlignment="Top" Width="76"/>
+            <TextBox x:Name="Date" Height="23" Margin="758,111,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" Background="{x:Null}" HorizontalAlignment="Right" IsReadOnly="True"/>
+            <Label Content="Описание:" HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top" Width="76"/>
+            <Image x:Name="AutorImg" Height="212" Margin="0,172,305,0" VerticalAlignment="Top" Width="256" Stretch="UniformToFill" HorizontalAlignment="Right" MouseDown="AutorImg_MouseDown"/>
+            <Button Content="Назад" HorizontalAlignment="Right" Margin="0,11,63,0" VerticalAlignment="Top" Width="62" Height="33" Background="#FFD8ADE8" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Click="Button_Click"/>
+        </Grid>
+
+    </Grid>
+</UserControl>

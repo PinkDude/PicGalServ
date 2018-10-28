@@ -31,15 +31,20 @@ namespace PicGalServ
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //services.AddMvc().AddRazorPagesOptions(options => {
+            //    //Отключение защиты от CSFR
+            //    options.Conventions.ConfigureFilter(new IgnoreAntiforgeryTokenAttribute());
+            //});
             var config = new AutoMapper.MapperConfiguration(cfg =>
             {
-                cfg.AddProfile<HelperProfile>();
+                cfg.AddProfile<CommonProfile>();
                 cfg.CreateMissingTypeMaps = true;
             });
             var mapper = config.CreateMapper();
             services.AddSingleton(mapper);
 
             services.AddTransient<IHelperService, HelperService>();
+            services.AddTransient<ICommonService, CommonService>();
 
 
             services.AddSwaggerGen(c =>
@@ -68,6 +73,7 @@ namespace PicGalServ
             });
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseMvc();
         }
     }

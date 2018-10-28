@@ -1,4 +1,5 @@
-﻿using Client.Views;
+﻿using Client.UserControls;
+using Client.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,56 +25,32 @@ namespace Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private const string AppPath = "https://localhost:44323";
+        private const string AppPath = "https://localhost:44323/";
         private static string token;
+        private PictureGrid PictureGr;
 
         public MainWindow()
         {
+            
             InitializeComponent();
+            AddPictureGrid(token);
         }
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                using(var client = new HttpClient())
-                {
-                    client.BaseAddress = new Uri("http://localhost:44323/");
-                    client.DefaultRequestHeaders.Accept.Clear();
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    Label1.Content = "В процессе";
+            AddPictureGrid(token);
+        }
 
-                    var response = await client.GetAsync("api/picture/test");
-                    if (response.IsSuccessStatusCode)
-                        Label1.Content = response.Content.ReadAsStringAsync().Result;
-                    else
-                        Label1.Content = "Не получилось";
-                }
-            }
-            catch(Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            //try
-            //{
-            //    List<PersonInfo> per = new List<PersonInfo>();
-            //    using (var client = new HttpClient())
-            //    {
-            //        var responce = client.GetAsync(AppPath + "/api/picture/person-info").ContinueWith((taskwithresponse =>
-            //        {
-            //            var response = taskwithresponse.Result;
-            //            var jsonString = response.Content.ReadAsStringAsync();
-            //            jsonString.Wait();
-            //            per = JsonConvert.DeserializeObject<List<PersonInfo>>(jsonString.Result);
-            //        }));
-            //        responce.Wait();
-            //    }
-            //    Label1.Content = per[0].LastName;
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception(ex.Message);
-            //}
+        public void AddPictureGrid(string token)
+        {
+            PictureGr = new PictureGrid(token, MainGrid);
+            //pic.Name = "PictureGrid";
+            PictureGr.Margin = new Thickness(10d, 150, 10, 0);
+            MainGrid.Children.Add(PictureGr);
+        }
+        
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

@@ -18,3 +18,11 @@ C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\Client.csproj.CoreCompil
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\Client.csproj.CopyComplete
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\Client.exe
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\Client.pdb
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Pic.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Pic.baml
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\PictureGrid.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\PictureGrid.baml
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Picture.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Picture.baml
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorById.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorById.baml

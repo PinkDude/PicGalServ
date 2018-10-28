@@ -61,7 +61,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\AutorById.xaml.cs">
+      <DependentUpon>AutorById.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Pic.xaml.cs">
+      <DependentUpon>Pic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Picture.xaml.cs">
+      <DependentUpon>Picture.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PictureGrid.xaml.cs">
+      <DependentUpon>PictureGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AutorDTO.cs" />
+    <Compile Include="Views\Genre.cs" />
     <Compile Include="Views\PersonInfo.cs" />
+    <Compile Include="Views\Picture.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +89,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\AutorById.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Pic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Picture.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PictureGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -105,5 +136,6 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

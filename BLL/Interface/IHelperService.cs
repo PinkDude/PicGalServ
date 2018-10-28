@@ -1,4 +1,5 @@
-﻿using DAL.Entity;
+﻿using BLL.DTO;
+using DAL.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
