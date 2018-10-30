@@ -29,6 +29,8 @@ namespace Client
         private static string token;
         private PictureGrid PictureGr;
 
+        enum Grid { PictureGrid, Picture, Autor, AutorGrid};
+
         public MainWindow()
         {
             

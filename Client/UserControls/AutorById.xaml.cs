@@ -50,7 +50,7 @@ namespace Client.UserControls
             Date.IsReadOnly = false;
             Phone.IsReadOnly = false;
 
-
+            Ok.Visibility = Visibility.Visible;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -77,7 +77,7 @@ namespace Client.UserControls
                         Description = Description.Text,
                         Birthday = Convert.ToDateTime(Date.Text),
                         Phone = Phone.Text,
-                        Photo = AutorImg.Source.ToString()
+                        Photo = AutorImg.Source.ToString().Replace(AppPath, "")
                     };
 
                     var response = await client.PutAsJsonAsync($"api/picture/person-info/{Id}", person);
@@ -103,6 +103,12 @@ namespace Client.UserControls
                         LastName.Text = per.LastName;
                         MiddleName.Text = per.MiddleName;
                         Date.Text = per.Birthday?.ToShortDateString();
+
+                        Ok.Visibility = Visibility.Hidden;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Что то пошло не так?!");
                     }
                 }
             }

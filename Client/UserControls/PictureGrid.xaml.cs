@@ -27,6 +27,8 @@ namespace Client.UserControls
         private const string AppPath = "https://localhost:44323/";
         private static string token;
         private readonly Grid MainGrid;
+        private static List<Pic> listPic = new List<Pic>();
+        private const double cLeft = 5d, cTop = 5d;
 
         public PictureGrid(string tok, Grid main)
         {
@@ -62,12 +64,17 @@ namespace Client.UserControls
                     if (response.IsSuccessStatusCode)
                     {
                         PictureView.Children.Clear();
+                        listPic.Clear();
 
                         var json = await response.Content.ReadAsStringAsync();
 
                         var per = await JsonConvert.DeserializeObjectAsync<List<Views.Picture>>(json);
 
-                        double left = 5d, top = 5d;
+                        double left = cLeft, top = cTop;
+
+                        Pic picTest = new Pic(0, null, "");
+
+                        int Count = (int)(ActualWidth/picTest.Width);
                         int i = 0;
                         foreach (var s in per)
                         {
@@ -93,18 +100,19 @@ namespace Client.UserControls
 
                             pic.Margin = new Thickness(left, top, 0, 0);
 
-                            if (i > 3)
+                            if (i > Count - 2)
                             {
-                                left = 5;
-                                top += pic.Height + 5d;
+                                left = cLeft;
+                                top += pic.Height + cTop;
                                 i = 0;
                             }
                             else
                             {
-                                left += pic.Width + 5d;
+                                left += pic.Width + cLeft;
                                 i++;
                             }
 
+                            listPic.Add(pic);
                             PictureView.Children.Add(pic);
                         }
                     }
@@ -152,6 +160,33 @@ namespace Client.UserControls
         {
             if(IsLoaded)
                 await SearchPicturesAsync();
+        }
+
+        private async void PictureGrid1_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (listPic.Count != 0)
+            {
+                PictureView.Children.Clear();
+                double left = cLeft, top = cTop;
+                int Count = (int)(ActualWidth / listPic[0].Width);
+                int i = 0;
+                foreach (var s in listPic)
+                {
+                    s.Margin = new Thickness(left, top, 0, 0);
+                    if (i > Count - 2)
+                    {
+                        left = cLeft;
+                        top += s.Height + cTop;
+                        i = 0;
+                    }
+                    else
+                    {
+                        left += s.Width + cLeft;
+                        i++;
+                    }
+                    PictureView.Children.Add(s);
+                }
+            }
         }
     }
 }

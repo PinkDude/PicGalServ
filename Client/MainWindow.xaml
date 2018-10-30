@@ -27,10 +27,10 @@
                 </LinearGradientBrush>
             </Grid.OpacityMask>
             <Button HorizontalAlignment="Left" Margin="69,10,0,0" VerticalAlignment="Top" Width="139" Height="63">
-                <Button Content="Button" Width="75"/>
+                <Button Content="Картины" Width="129" Height="53" FontSize="24"/>
             </Button>
             <Button HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top" Width="139" Height="63">
-                <Button Content="Button" Width="75"/>
+                <Button Content="Авторы" Width="129" Height="53" FontSize="24"/>
             </Button>
             <Button HorizontalAlignment="Left" Margin="457,10,0,0" VerticalAlignment="Top" Width="139" Height="63" Click="Button_Click">
                 <Button Content="Button" Width="75"/>

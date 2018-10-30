@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Client.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" SizeChanged="PictureGrid1_SizeChanged">
     <Grid x:Name="BackGrid" Background="#FFB99595" Loaded="Grid_Loaded" Margin="10,0">
         <Button Content="Поиск" HorizontalAlignment="Left" Margin="548,25,0,0" VerticalAlignment="Top" Width="41" Height="23" Click="Button_Click"/>
         <Label Content="Жанр:" HorizontalAlignment="Left" Margin="594,24,0,0" VerticalAlignment="Top" Height="24"/>

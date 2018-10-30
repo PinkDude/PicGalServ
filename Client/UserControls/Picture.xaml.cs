@@ -86,7 +86,8 @@ namespace Client.UserControls
                         au.MiddleName.Text = per.MiddleName;
                         au.Date.Text = per.Birthday?.ToShortDateString();
 
-                        au.Margin = new Thickness(10, 150, 10, 0);
+                        au.Margin = new Thickness(30, 150, 30, 0);
+                        //au.Width = ActualWidth;
 
                         mainGrid.Children.Add(au);
                     }
