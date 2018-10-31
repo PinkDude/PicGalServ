@@ -26,3 +26,7 @@ C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Picture.g.c
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Picture.baml
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorById.g.cs
 C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorById.baml
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorGrid.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\AutorGrid.baml
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Autor.g.cs
+C:\Users\Ilnoo\source\repos\PicGalServ\Client\obj\Debug\UserControls\Autor.baml

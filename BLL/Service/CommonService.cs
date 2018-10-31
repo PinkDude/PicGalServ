@@ -21,7 +21,7 @@ namespace BLL.Service
             _mapper = m;
         }
 
-        public async Task<IEnumerable<PersonInfo>> GetAllPersonInfo(string Name, GetDTO getModel)
+        public async Task<AuAndPageDTO> GetAllPersonInfo(string Name, GetDTO getModel)
         {
             List<string> list = new List<string>()
             {
@@ -35,10 +35,15 @@ namespace BLL.Service
 
             var res = await _helper.Get<PersonInfo>("PersonInfo", "*", false, list);
 
+            var resDTO = new AuAndPageDTO();
+            resDTO.Count = res.Count();
+
             res = res.Skip(getModel.Skip)
                      .Take(getModel.Take);
 
-            return res;
+            resDTO.Persons = res;
+
+            return resDTO;
         }
 
         public async Task<PersonInfo> GetPersonInfoById(int id)
@@ -47,7 +52,7 @@ namespace BLL.Service
             return res;
         }
 
-        public async Task<IEnumerable<PictureDTO>> GetAllPictures(string Name, int genreId, GetDTO getModel)
+        public async Task<PicAndPageDTO> GetAllPictures(string Name, int genreId, GetDTO getModel)
         {
             List<string> list = new List<string>()
             {
@@ -58,14 +63,18 @@ namespace BLL.Service
             if (genreId != 0)
                 list.Add($"GenreId = {genreId}");
 
-            var res = await _helper.Get<Pictures>("Pictures", "*", true, list);
+            var pictures = await _helper.Get<Pictures>("Pictures", "*", true, list);
 
-            res = res.Skip(getModel.Skip)
+            PicAndPageDTO resDTO = new PicAndPageDTO();
+
+            resDTO.Count = pictures.Count();
+
+            pictures = pictures.Skip(getModel.Skip)
                      .Take(getModel.Take);
 
-            var resDTO = _mapper.Map<IEnumerable<PictureDTO>>(res);
+            var picturesDTO = _mapper.Map<IEnumerable<PictureDTO>>(pictures);
 
-            foreach(var i in resDTO)
+            foreach(var i in picturesDTO)
             {
                 var autor = await GetPersonInfoById(i.AutorId);
                 i.Autor = _mapper.Map<AutorDTO>(autor);
@@ -73,6 +82,8 @@ namespace BLL.Service
                 var genre = await _helper.GetById<Genres>("Genres", "*", i.GenreId);
                 i.Genre = genre.Name;
             }
+
+            resDTO.Pictures = picturesDTO;
 
             return resDTO;
         }

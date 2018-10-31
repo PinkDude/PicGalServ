@@ -28,31 +28,59 @@ namespace Client
         private const string AppPath = "https://localhost:44323/";
         private static string token;
         private PictureGrid PictureGr;
+        private AutorGrid AutorGr;
+        private Grid gr = Grid.PictureGrid;
 
-        enum Grid { PictureGrid, Picture, Autor, AutorGrid};
+        public enum Grid { PictureGrid, AutorGrid};
 
         public MainWindow()
         {
             
             InitializeComponent();
-            AddPictureGrid(token);
+            AddPictureGrid();
         }
 
-        private async void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            AddPictureGrid(token);
+            AddPictureGrid();
         }
 
-        public void AddPictureGrid(string token)
+        private void AddPictureGrid()
         {
-            PictureGr = new PictureGrid(token, MainGrid);
-            //pic.Name = "PictureGrid";
-            PictureGr.Margin = new Thickness(10d, 150, 10, 0);
-            MainGrid.Children.Add(PictureGr);
+            PictureGr = new PictureGrid(token, CommonGrid);
+            PictureGr.Margin = new Thickness(10d, 0, 10, 0);
+            CommonGrid.Children.Add(PictureGr);
+        }
+
+        private void AddAutorGrid()
+        {
+            AutorGr = new AutorGrid(AppPath, token, CommonGrid);
+            AutorGr.Margin = new Thickness(10d, 0, 10d, 0);
+            CommonGrid.Children.Add(AutorGr);
         }
         
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (gr != Grid.PictureGrid)
+            {
+                CommonGrid.Children.Clear();
+                AddPictureGrid();
+                gr = Grid.PictureGrid;
+            }
+        }
+
+        private void Autors_Click(object sender, RoutedEventArgs e)
+        {
+            if(gr != Grid.AutorGrid)
+            {
+                CommonGrid.Children.Clear();
+                AddAutorGrid();
+                gr = Grid.AutorGrid;
+            }
         }
     }
 }

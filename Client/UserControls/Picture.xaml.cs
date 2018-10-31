@@ -76,8 +76,7 @@ namespace Client.UserControls
                         BitmapImage bm = new BitmapImage(uri);
                         au.AutorImg.Source = bm;
 
-                        if(per.Autor)
-                            au.Autor.IsChecked = true;
+                        au.Autor.SelectedIndex = per.Autor ? 0 : 1;
 
                         au.Phone.Text = per.Phone;
                         au.Description.Text = per.Description;
@@ -86,7 +85,7 @@ namespace Client.UserControls
                         au.MiddleName.Text = per.MiddleName;
                         au.Date.Text = per.Birthday?.ToShortDateString();
 
-                        au.Margin = new Thickness(30, 150, 30, 0);
+                        au.Margin = new Thickness(30, 0, 30, 0);
                         //au.Width = ActualWidth;
 
                         mainGrid.Children.Add(au);

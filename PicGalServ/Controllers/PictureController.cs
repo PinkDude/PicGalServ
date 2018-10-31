@@ -28,7 +28,7 @@ namespace PicGalServ.Controllers
         #region Person Info
 
         [HttpGet("person-info")]
-        [ProducesResponseType(typeof(IEnumerable<PersonInfo>), 200)]
+        [ProducesResponseType(typeof(AuAndPageDTO), 200)]
         public async Task<IActionResult> GetAllPersonInfo(string Name, [FromQuery]GetDTO getModel)
         {
             var res = await _commonService.GetAllPersonInfo(Name, getModel);
@@ -79,7 +79,7 @@ namespace PicGalServ.Controllers
         #region Pictures
 
         [HttpGet("pictures")]
-        [ProducesResponseType(typeof(IEnumerable<PictureDTO>), 200)]
+        [ProducesResponseType(typeof(PicAndPageDTO), 200)]
         public async Task<IActionResult> GetAllPictures(string Name, int genreId, [FromQuery] GetDTO getModel)
         {
             var res = await _commonService.GetAllPictures(Name, genreId, getModel);

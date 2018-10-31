@@ -49,13 +49,14 @@ namespace Client.UserControls
             Description.IsReadOnly = false;
             Date.IsReadOnly = false;
             Phone.IsReadOnly = false;
+            Autor.IsReadOnly = false;
+            Autor.IsEnabled = true;
 
             Ok.Visibility = Visibility.Visible;
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         private async void Ok_Click(object sender, RoutedEventArgs e)
@@ -70,7 +71,7 @@ namespace Client.UserControls
 
                     PersonInfo person = new PersonInfo
                     {
-                        Autor = Autor.IsChecked.HasValue,
+                        Autor = Autor.SelectedIndex == 0 ? true : false,
                         FirstName = FirstName.Text,
                         LastName = LastName.Text,
                         MiddleName = MiddleName.Text,
@@ -92,10 +93,7 @@ namespace Client.UserControls
                         BitmapImage bm = new BitmapImage(uri);
                         AutorImg.Source = bm;
 
-                        if (per.Autor)
-                            Autor.IsChecked = true;
-                        else
-                            Autor.IsChecked = false;
+                        Autor.SelectedIndex = per.Autor ? 0 : 1;
 
                         Phone.Text = per.Phone;
                         Description.Text = per.Description;
@@ -105,6 +103,14 @@ namespace Client.UserControls
                         Date.Text = per.Birthday?.ToShortDateString();
 
                         Ok.Visibility = Visibility.Hidden;
+                        FirstName.IsReadOnly = true;
+                        LastName.IsReadOnly = true;
+                        MiddleName.IsReadOnly = true;
+                        Description.IsReadOnly = true;
+                        Date.IsReadOnly = true;
+                        Phone.IsReadOnly = true;
+                        Autor.IsReadOnly = true;
+                        Autor.IsEnabled = false;
                     }
                     else
                     {

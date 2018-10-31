@@ -9,9 +9,9 @@ namespace BLL.Interface
 {
     public interface ICommonService
     {
-        Task<IEnumerable<PersonInfo>> GetAllPersonInfo(string Name, GetDTO getModel);
+        Task<AuAndPageDTO> GetAllPersonInfo(string Name, GetDTO getModel);
         Task<PersonInfo> GetPersonInfoById(int id);
-        Task<IEnumerable<PictureDTO>> GetAllPictures(string Name, int genreId, GetDTO getModel);
+        Task<PicAndPageDTO> GetAllPictures(string Name, int genreId, GetDTO getModel);
         Task<PictureDTO> GetPictureAsync(int id);
     }
 }

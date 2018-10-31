@@ -27,8 +27,13 @@ namespace Client.UserControls
         private const string AppPath = "https://localhost:44323/";
         private static string token;
         private readonly Grid MainGrid;
-        private static List<Pic> listPic = new List<Pic>();
         private const double cLeft = 5d, cTop = 5d;
+        private int Skip = 0;
+        private int CountPage;
+        private int PageNow = 1;
+        private const int Take = 10;
+
+        public static List<Pic> listPic = new List<Pic>();
 
         public PictureGrid(string tok, Grid main)
         {
@@ -39,6 +44,8 @@ namespace Client.UserControls
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
+            Skip = 0;
+            PageNow = 1;
             await SearchPicturesAsync();
         }
 
@@ -59,7 +66,7 @@ namespace Client.UserControls
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var response = await client.GetAsync($"api/picture/pictures?Name={Search.Text}&genreId={Genres.SelectedIndex.ToString()}");
+                    var response = await client.GetAsync($"api/picture/pictures?Name={Search.Text}&genreId={Genres.SelectedIndex.ToString()}&Take={Take}&Skip={Skip}");
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -68,7 +75,11 @@ namespace Client.UserControls
 
                         var json = await response.Content.ReadAsStringAsync();
 
-                        var per = await JsonConvert.DeserializeObjectAsync<List<Views.Picture>>(json);
+                        var per = await JsonConvert.DeserializeObjectAsync<PicAndPage>(json);
+
+                        CountPage = (int)Math.Ceiling((double)per.Count/(double)Take);
+
+                        Pages.Content = $"{PageNow}/{Math.Ceiling((double)(per.Count) / (double)Take)}";
 
                         double left = cLeft, top = cTop;
 
@@ -76,7 +87,7 @@ namespace Client.UserControls
 
                         int Count = (int)(ActualWidth/picTest.Width);
                         int i = 0;
-                        foreach (var s in per)
+                        foreach (var s in per.Pictures)
                         {
                             Pic pic = new Pic(s.Id, MainGrid, AppPath)
                             {
@@ -158,13 +169,37 @@ namespace Client.UserControls
 
         private async void Genres_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(IsLoaded)
+            if (IsLoaded)
+            {
+                Skip = 0;
+                PageNow = 1;
                 await SearchPicturesAsync();
+            }
+        }
+
+        private async void Prev_Click(object sender, RoutedEventArgs e)
+        {
+            if (Skip >= Take)
+            {
+                Skip -= Take;
+                PageNow--;
+                await SearchPicturesAsync();
+            }
+        }
+
+        private async void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if(Skip < (CountPage - 1) * Take)
+            {
+                Skip += Take;
+                PageNow++;
+                await SearchPicturesAsync();
+            }
         }
 
         private async void PictureGrid1_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (listPic.Count != 0)
+            if (listPic.Count != 0 && IsLoaded)
             {
                 PictureView.Children.Clear();
                 double left = cLeft, top = cTop;

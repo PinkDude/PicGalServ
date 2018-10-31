@@ -88,7 +88,7 @@ namespace Client.UserControls
                         pic.Date.Text = per.Date.ToShortDateString();
                         pic.Description.Text = per.Description;
 
-                        pic.Margin = new Thickness(20d, 150, 20, 0);
+                        pic.Margin = new Thickness(20d, 0, 20, 0);
 
                         MainGrid.Children.Add(pic);
                     }

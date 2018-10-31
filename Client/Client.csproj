@@ -61,8 +61,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="UserControls\Autor.xaml.cs">
+      <DependentUpon>Autor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AutorById.xaml.cs">
       <DependentUpon>AutorById.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AutorGrid.xaml.cs">
+      <DependentUpon>AutorGrid.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Pic.xaml.cs">
       <DependentUpon>Pic.xaml</DependentUpon>
@@ -73,9 +79,11 @@
     <Compile Include="UserControls\PictureGrid.xaml.cs">
       <DependentUpon>PictureGrid.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AuAndPage.cs" />
     <Compile Include="Views\AutorDTO.cs" />
     <Compile Include="Views\Genre.cs" />
     <Compile Include="Views\PersonInfo.cs" />
+    <Compile Include="Views\PicAndPage.cs" />
     <Compile Include="Views\Picture.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -89,7 +97,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\Autor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\AutorById.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AutorGrid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
