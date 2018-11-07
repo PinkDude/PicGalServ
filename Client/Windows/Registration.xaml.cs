@@ -33,7 +33,7 @@ namespace Client.Windows
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            if(Password.Text != Password2.Text || Password.Text == string.Empty)
+            if(Password.Password != Password2.Password || Password.Password == string.Empty)
             {
                 MessageBox.Show("Пароли не совпадают");
             }
@@ -56,7 +56,7 @@ namespace Client.Windows
                             MiddleName = MiddleName.Text,
                             Email = Email.Text,
                             Number = Number.Text,
-                            Password = Password.Text
+                            Password = Password.Password
                         };
                         if (Birthday.Text != string.Empty)
                             content.Birthday = Convert.ToDateTime(Birthday.Text);

@@ -38,7 +38,7 @@ namespace Client.UserControls
 
         private async void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var token = await GetTokenDictionary(UserName.Text, Password.Text);
+            var token = await GetTokenDictionary(UserName.Text, Password.Password);
             MainWindow.token = token.Access_token;
             MainWindow.Id = token.Id;
             MainWindow.Role = token.Role.Replace(" ", "");

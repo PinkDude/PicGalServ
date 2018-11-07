@@ -13,7 +13,7 @@
         <Label Content="Email:" HorizontalAlignment="Right" Margin="0,4,232,0" VerticalAlignment="Top" Width="50" HorizontalContentAlignment="Center" FontSize="16" Height="32" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="#FFF7ECEC"/>
         <Label HorizontalAlignment="Right" Margin="0,26,0,0" VerticalAlignment="Top" Width="101" HorizontalContentAlignment="Center" FontSize="16" Height="32" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="#FFF7ECEC" Content="или"/>
         <Button x:Name="Registration" Content="Регистрация" HorizontalAlignment="Right" VerticalAlignment="Top" Width="101" Height="25" Click="Button_Click_3" Margin="228,51,0,0"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Right" Height="23" Margin="0,51,106,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Пароль:" HorizontalAlignment="Right" Margin="0,45,232,0" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" FontSize="16" Height="32" VerticalContentAlignment="Center" Background="{x:Null}" Foreground="#FFF7ECEC"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="101,51,0,0" VerticalAlignment="Top" Height="25" Width="121"/>
     </Grid>
 </UserControl>

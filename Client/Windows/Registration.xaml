@@ -8,8 +8,6 @@
         Title="Registration" Height="492.229" Width="284" Background="{x:Null}" MaxWidth="284" MinWidth="284" MinHeight="492.229" MaxHeight="492.229" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
     <Grid Margin="0,0,0,2" Background="#FF9469A4">
         <TextBox x:Name="Email" HorizontalAlignment="Left" Height="23" Margin="90,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Password" HorizontalAlignment="Left" Height="23" Margin="90,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="Password2" HorizontalAlignment="Left" Height="23" Margin="90,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="Email*" HorizontalAlignment="Left" Margin="10,27,0,0" VerticalAlignment="Top" Height="39" Width="75" HorizontalContentAlignment="Right" FontSize="14" Background="{x:Null}" Foreground="White"/>
         <Label Content="Пароль*" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Height="39" Width="75" HorizontalContentAlignment="Right" FontSize="14" Background="{x:Null}" Foreground="White"/>
         <Label Content="Пароль*" HorizontalAlignment="Left" Margin="5,110,0,0" VerticalAlignment="Top" Height="39" Width="80" HorizontalContentAlignment="Right" FontSize="14" Background="{x:Null}" Foreground="White"/>
@@ -24,6 +22,8 @@
         <Label Content="Телефон" HorizontalAlignment="Left" Margin="5,276,0,0" VerticalAlignment="Top" Height="39" Width="80" HorizontalContentAlignment="Right" FontSize="14" Background="{x:Null}" Foreground="White"/>
         <Label Content="ДР" HorizontalAlignment="Left" Margin="5,320,0,0" VerticalAlignment="Top" Height="39" Width="80" HorizontalContentAlignment="Right" FontSize="14" Background="{x:Null}" Foreground="White"/>
         <DatePicker x:Name="Birthday" HorizontalAlignment="Left" Margin="85,323,0,0" VerticalAlignment="Top" Width="125" Height="36"/>
+        <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="90,71,0,0" VerticalAlignment="Top" Height="23" Width="120"/>
+        <PasswordBox x:Name="Password2" HorizontalAlignment="Left" Margin="90,110,0,0" VerticalAlignment="Top" Height="23" Width="120"/>
 
     </Grid>
 </Window>
