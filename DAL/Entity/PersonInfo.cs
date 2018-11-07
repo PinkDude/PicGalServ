@@ -51,8 +51,9 @@ namespace DAL.Entity
                 Photo,
                 Description,
                 Autor ? "1" : "0",
-                $"{this.Birthday.Value.Year}-{this.Birthday.Value.Month}-{this.Birthday.Value.Day}"
+                Birthday == null ? "" : $"{this.Birthday.Value.Year}-{this.Birthday.Value.Month}-{this.Birthday.Value.Day}"
             };
+
 
             return list;
         }

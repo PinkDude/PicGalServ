@@ -1,5 +1,6 @@
 ﻿using BLL.DTO;
 using DAL.Entity;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,5 +15,7 @@ namespace BLL.Interface
         Task<T> Create<T>(T item) where T : CommonEntity;
         Task<T> GetById<T>(string Table, string Collum, int id) where T : CommonEntity;
         Task<T> Update<T>(T item) where T : CommonEntity;
+        Task<ApplicationUsers> GetUserAsync(string Email, string Password);
+        Task<string> SaveImage(IFormFile file);
     }
 }

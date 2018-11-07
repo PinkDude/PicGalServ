@@ -10,18 +10,27 @@ using AutoMapper;
 using System.Data;
 using BLL.Mapping;
 using BLL.DTO;
+using BLL.Service.AccountHelp;
+using Microsoft.AspNetCore.Http;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using System.IO;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Hosting;
 
 namespace BLL.Service
 {
     public class HelperService : IHelperService
     {
+        private readonly IHostingEnvironment _environment;
         private readonly string conn;
         private readonly IMapper _mapper;
 
-        public HelperService(IConfiguration conf, IMapper m)
+        public HelperService(IConfiguration conf, IMapper m, IHostingEnvironment env)
         {
             conn = conf.GetConnectionString("DefaultConnection");
             _mapper = m;
+            _environment = env;
         }
 
         public async Task<IEnumerable<T>> Get<T>(string Table, string Collum, bool And, List<string> par) where T : CommonEntity
@@ -145,13 +154,22 @@ namespace BLL.Service
                         string com = string.Format("INSERT INTO [dbo].[" + item.GetNameOfTable() + "] (");
 
                         com += String.Join(", ", item.GetListOfFields());
-                        com += ") VALUES ('" + String.Join("', '", item.GetFields()) + "')";
-                        com += " SELECT CAST(SCOPE_IDENTITY() AS int)";
+                        com += ") VALUES (N'" + String.Join("', N'", item.GetFields()) + "')";
+
+                        if(typeof(T) != typeof(ApplicationUsers))
+                            com += " SELECT CAST(SCOPE_IDENTITY() AS int)";
 
                         command.CommandText = com;
-                        int resId = (int)await command.ExecuteScalarAsync();
+                        if (typeof(T) != typeof(ApplicationUsers))
+                        {
+                            int resId = (int)await command.ExecuteScalarAsync();
 
-                        item = await GetById<T>(item.GetNameOfTable(), "*", resId);
+                            item = await GetById<T>(item.GetNameOfTable(), "*", resId);
+                        }
+                        else
+                        {
+                            await command.ExecuteNonQueryAsync();
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -182,7 +200,7 @@ namespace BLL.Service
 
                         for (int i = 0, j = 0; i < listNameFields.Count && j < listFields.Count; i++, j++)
                         {
-                            com += $"{listNameFields[i]} = '{listFields[j]}'";
+                            com += $"{listNameFields[i]} = N'{listFields[j]}'";
                             if (i != listNameFields.Count - 1 || j != listFields.Count - 1)
                                 com += ", ";
                         }
@@ -253,14 +271,126 @@ namespace BLL.Service
 
                 if (!DBNull.Value.Equals(reader[4]))
                     res.Date = (DateTime)reader[4];
+                else
+                    res.Date = null;
 
                 if (!DBNull.Value.Equals(reader[7]))
                     res.Status = (bool)reader[7];
 
                 return res as T;
-            };
+            }
+            if(typeof(T) == typeof(ApplicationUsers))
+            {
+                var res = new ApplicationUsers
+                {
+                    Id = (int)reader[0],
+                    Email = reader[1].ToString(),
+                    EmailNorm = reader[2].ToString(),
+                    PasswordHash = reader[3].ToString(),
+                    PersonInfoId = (int)reader[4],
+                    RoleId = (int)reader[5]
+                };
+                return res as T;
+            }
+            if(typeof(T) == typeof(ApplicationRoles))
+            {
+                var res = new ApplicationRoles
+                {
+                    Id = (int)reader[0],
+                    RoleName = reader[1].ToString()
+                };
+
+                return res as T;
+            }
 
             return null;
+        }
+
+        public async Task<ApplicationUsers> GetUserAsync(string Email, string Password)
+        {
+            using (SqlConnection connection = new SqlConnection(conn))
+            {
+                connection.Open();
+                ApplicationUsers res = null;
+                using (SqlCommand command = connection.CreateCommand())
+                {
+
+                    try
+                    {
+                        string com = string.Format($"SELECT * FROM ApplicationUsers Where Email = '{Email}'");
+                        command.CommandText = com;
+                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        {
+                            while(await reader.ReadAsync())
+                                res = await Map<ApplicationUsers>(reader);
+                        }
+
+                        if (res != null)
+                        {
+                            if (!PasswordHash.VerifyHashedPassword(res.PasswordHash, Password))
+                            {
+                                throw new NotImplementedException("Не удалось найти пользователя");
+                            }
+
+                            var Role = await GetById<ApplicationRoles>("ApplicationRoles", "*", res.RoleId);
+
+                            res.Role = Role.RoleName;
+
+                            return res;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(ex.Message);
+                    }
+                    finally
+                    {
+                        connection.Close();
+                    }
+                    return null;
+                }
+            }
+        }
+
+        public async Task<string> SaveImage(IFormFile file)
+        {
+            return await Task.Run(() =>
+            {
+                if (file == null || string.IsNullOrEmpty(_environment.WebRootPath))
+                    return null;
+                Image<Rgba32> image = Image.Load(file.OpenReadStream());
+
+                string hash = GetHashFromFile(file.OpenReadStream());
+                
+                string dir1 = _environment.WebRootPath + "/Files/Images/" + hash.Substring(0, 2);
+                string dir2 = $"{dir1}/{hash.Substring(2, 2)}/";
+                
+                if (!Directory.Exists(dir1))
+                {
+                    Directory.CreateDirectory(dir1);
+                    Directory.CreateDirectory(dir2);
+                }
+                else if (!Directory.Exists(dir2))
+                    Directory.CreateDirectory(dir2);
+                
+                string result = dir2 + file.FileName;
+                image.Save(result);
+
+                return result.Replace(_environment.WebRootPath, "");
+            });
+        }
+
+        private string GetHashFromFile(Stream stream)
+        {
+            var hash = SHA1.Create().ComputeHash(stream);
+            var sb = new StringBuilder(hash.Length * 2);
+
+            foreach (byte b in hash)
+            {
+                sb.Append(b.ToString("X2"));
+            }
+
+            return sb.ToString();
         }
     }
 }

@@ -102,11 +102,12 @@ namespace Client.UserControls
             await SearchAutorsAsync();
         }
 
+
         private async Task SearchAutorsAsync()
         {
             try
             {
-                using (var client = new HttpClient())
+                using (var client = CreateClient(token))
                 {
                     client.BaseAddress = new Uri(AppPath);
                     client.DefaultRequestHeaders.Accept.Clear();
@@ -172,6 +173,17 @@ namespace Client.UserControls
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        static HttpClient CreateClient(string accessToken = "")
+        {
+            var client = new HttpClient();
+            if (!string.IsNullOrWhiteSpace(accessToken))
+            {
+                client.DefaultRequestHeaders.Authorization =
+                    new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", accessToken);
+            }
+            return client;
         }
     }
 }

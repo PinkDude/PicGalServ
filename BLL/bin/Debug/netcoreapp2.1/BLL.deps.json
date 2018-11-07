@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "3f89ac3cf7fa78e7cc792bdef7280a27525f8b70"
+    "signature": "d193d1ba51acb91fbfefc2246e8123161279509a"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,7 +11,8 @@
           "AutoMapper": "7.0.1",
           "AutoMapper.DataReaderMapper": "1.0.6136.33530",
           "DAL": "1.0.0",
-          "Microsoft.Extensions.Configuration": "2.1.1"
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "SixLabors.ImageSharp": "1.0.0-beta0005"
         },
         "runtime": {
           "BLL.dll": {}
@@ -2406,6 +2407,31 @@
           }
         }
       },
+      "SixLabors.Core/1.0.0-beta0006": {
+        "dependencies": {
+          "System.Buffers": "4.5.0",
+          "System.Memory": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/SixLabors.Core.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        }
+      },
+      "SixLabors.ImageSharp/1.0.0-beta0005": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0006",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "System.AppContext/4.3.0": {
         "dependencies": {
           "System.Runtime": "4.3.0"
@@ -4652,6 +4678,20 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
+    },
+    "SixLabors.Core/1.0.0-beta0006": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AY/aNmjmsU6OftAA8ownjARTy7A8+Q+HjJMAOpIwhIxacOIGF8JhwUDAZw/g70+hfcjkbCzIKYwEF1vdanWz/g==",
+      "path": "sixlabors.core/1.0.0-beta0006",
+      "hashPath": "sixlabors.core.1.0.0-beta0006.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mcaaf6v9WF1r25gmBQujFu/S20yotMRJSwqUaWj4LNS7OUUtBejPmfaWnejGeSQgZWDR4qjNTXY/namjDAgQiA==",
+      "path": "sixlabors.imagesharp/1.0.0-beta0005",
+      "hashPath": "sixlabors.imagesharp.1.0.0-beta0005.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",

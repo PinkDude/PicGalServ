@@ -20,6 +20,10 @@
             </TransformGroup>
         </Grid.RenderTransform>
         <Grid Height="100" Margin="167,10,89,0" VerticalAlignment="Top" Background="#FF8F1833" MinWidth="702">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1109*"/>
+                <ColumnDefinition Width="372*"/>
+            </Grid.ColumnDefinitions>
             <Grid.OpacityMask>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
@@ -30,11 +34,9 @@
                 <Button Content="Картины" Width="129" Height="53" FontSize="24"/>
             </Button>
             <Button x:Name="Autors" HorizontalAlignment="Left" Margin="261,10,0,0" VerticalAlignment="Top" Width="191" Height="63" Click="Autors_Click">
-                <Button Content="Пользователи" Width="163" Height="53" FontSize="24"/>
+                <Button Content="Авторы" Width="163" Height="53" FontSize="24"/>
             </Button>
-            <Button HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Width="209" Height="73" Click="Button_Click_1">
-                <Button Content="Button" Width="75"/>
-            </Button>
+            <Grid x:Name="LogInGrid" HorizontalAlignment="Right" Height="86" Margin="0,4,22,0" VerticalAlignment="Top" Width="400" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2"/>
         </Grid>
         <Grid x:Name="CommonGrid" Margin="10,115,0,0" Grid.RowSpan="2"/>
 

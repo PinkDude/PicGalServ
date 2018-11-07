@@ -13,7 +13,7 @@ namespace DAL.Entity
 
         public string Description { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public int GenreId { get; set; }
 
@@ -47,7 +47,7 @@ namespace DAL.Entity
                 Name,
                 AutorId.ToString(),
                 Description,
-                Date.Date.ToString(),
+                Date?.Date.ToString(),
                 GenreId.ToString(),
                 PicturePath,
                 Status ? "1" : "0",

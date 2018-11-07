@@ -1,4 +1,5 @@
-﻿using Client.Views;
+﻿using Client.Services;
+using Client.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,21 +25,24 @@ namespace Client.UserControls
     /// </summary>
     public partial class PictureGrid : UserControl
     {
-        private const string AppPath = "https://localhost:44323/";
-        private static string token;
+        private readonly string AppPath;
         private readonly Grid MainGrid;
         private const double cLeft = 5d, cTop = 5d;
         private int Skip = 0;
         private int CountPage;
         private int PageNow = 1;
         private const int Take = 10;
+        private readonly int? autorId;
+        private readonly bool admin;
 
         public static List<Pic> listPic = new List<Pic>();
 
-        public PictureGrid(string tok, Grid main)
+        public PictureGrid(string app, Grid main, bool adm, int? autId = null)
         {
-            token = tok;
+            AppPath = app;
             MainGrid = main;
+            autorId = autId;
+            admin = adm;
             InitializeComponent();
         }
 
@@ -60,13 +64,21 @@ namespace Client.UserControls
         {
             try
             {
-                using (var client = new HttpClient())
+                using (var client = HttpHelper.CreateClient(MainWindow.token))
                 {
                     client.BaseAddress = new Uri(AppPath);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var response = await client.GetAsync($"api/picture/pictures?Name={Search.Text}&genreId={Genres.SelectedIndex.ToString()}&Take={Take}&Skip={Skip}");
+                    HttpResponseMessage response;
+                    if (admin)
+                    {
+                        response = await client.GetAsync($"api/picture/pictures/conf?Name={Search.Text}&genreId={Genres.SelectedIndex.ToString()}&Take={Take}&Skip={Skip}");
+                    }
+                    else
+                    {
+                        response = await client.GetAsync($"api/picture/pictures?Name={Search.Text}&genreId={Genres.SelectedIndex.ToString()}&Take={Take}&Skip={Skip}&autorId={autorId}");
+                    }
 
                     if (response.IsSuccessStatusCode)
                     {
@@ -105,9 +117,12 @@ namespace Client.UserControls
 
                             pic.Name.Content = s.Name;
 
+                            if (!s.Status)
+                                pic.Status.Visibility = Visibility.Visible;
+
                             pic.Autor.Content = s.Autor.ShotName;
                             pic.Genre.Content = s.Genre;
-                            pic.Date.Content = s.Date.ToShortDateString();
+                            pic.Date.Content = s.Date?.ToShortDateString();
 
                             pic.Margin = new Thickness(left, top, 0, 0);
 

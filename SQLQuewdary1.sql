@@ -1,0 +1,1 @@
+﻿UPDATE Pictures SET Name = 'da        ', AutorId = '52', Description = 'Vot tak da', Date = '01.01.1900 0:00:00', GenreId = '2', PicturePath = '', Status = '1', ParentId = '' Where Id = 40

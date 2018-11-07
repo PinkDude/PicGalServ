@@ -14,7 +14,7 @@ namespace BLL.DTO
 
         public string Description { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string Genre { get; set; }
 
@@ -23,5 +23,7 @@ namespace BLL.DTO
         public AutorDTO Autor { get; set; }
 
         public int GenreId { get; set; }
+
+        public bool Status { get; set; }
     }
 }

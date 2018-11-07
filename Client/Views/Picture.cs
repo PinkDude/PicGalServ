@@ -16,7 +16,7 @@ namespace Client.Views
 
         public string Description { get; set; }
 
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string Genre { get; set; }
 
@@ -25,5 +25,7 @@ namespace Client.Views
         public AutorDTO Autor { get; set; }
 
         public int GenreId { get; set; }
+
+        public bool Status { get; set; }
     }
 }

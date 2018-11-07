@@ -50,29 +50,44 @@ namespace PicGalServ.Controllers
             return Ok();
         }
 
-        [HttpPost("person-info")]
-        [ProducesResponseType(typeof(PersonInfo), 200)]
-        public async Task<IActionResult> CreatePersonInfo([FromBody]PersonInfo per)
+        [HttpPost("person-info/{id}/pic")]
+        public async Task<IActionResult> LoadImage([FromRoute]int id)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var res = await _helperService.Create<PersonInfo>( per);
-
-            return Ok(res);
+            var file = Request.Form.Files;
+            if(file != null)
+            {
+                await _commonService.SaveImagePerson(id, file[0]);
+                return Ok();
+            }
+            return BadRequest("Загрузка не прошла");
         }
 
+        //[HttpPost("person-info")]
+        //[ProducesResponseType(typeof(PersonInfo), 200)]
+        //public async Task<IActionResult> CreatePersonInfo([FromBody]PersonInfo per)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var res = await _helperService.Create<PersonInfo>( per);
+
+        //    return Ok(res);
+        //}
+
+        [Authorize(Roles = "Autor, Admin")]
         [HttpPut("person-info/{id}")]
         [ProducesResponseType(typeof(PersonInfo), 200)]
         public async Task<IActionResult> UpdatePersonInfo([FromRoute]int id , [FromBody]PersonInfo per)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+            if (id == per.Id || User.IsInRole("Admin"))
+            {
+                var res = await _helperService.Update<PersonInfo>(per);
 
-            per.Id = id;
-            var res = await _helperService.Update<PersonInfo>( per);
-
-            return Ok(res);
+                return Ok(res);
+            }
+            return BadRequest("Это же не твой профиль");
         }
         #endregion
 
@@ -80,18 +95,80 @@ namespace PicGalServ.Controllers
 
         [HttpGet("pictures")]
         [ProducesResponseType(typeof(PicAndPageDTO), 200)]
-        public async Task<IActionResult> GetAllPictures(string Name, int genreId, [FromQuery] GetDTO getModel)
+        public async Task<IActionResult> GetAllPictures(string Name, int genreId, [FromQuery] GetDTO getModel, int? autorId = null)
         {
-            var res = await _commonService.GetAllPictures(Name, genreId, getModel);
+            var res = await _commonService.GetAllPictures(Name, genreId, getModel, autorId);
+            return Ok(res);
+        }
+
+        [Authorize(Roles ="Admin")]
+        [HttpGet("pictures/conf")]
+        [ProducesResponseType(typeof(PicAndPageDTO), 200)]
+        public async Task<IActionResult> GetConfPictures(string Name, int genreId, [FromQuery] GetDTO getModel)
+        {
+            var res = await _commonService.GetConfPictures(Name, genreId, getModel);
             return Ok(res);
         }
 
         [HttpGet("pictures/{id}")]
         [ProducesResponseType(typeof(PictureDTO), 200)]
-        public async Task<IActionResult> GetPictureById(int id)
+        public async Task<IActionResult> GetPictureById([FromRoute]int id)
         {
             var res = await _commonService.GetPictureAsync(id);
             return Ok(res);
+        }
+
+        [Authorize(Roles = "Autor, Admin")]
+        [HttpPut("pictures/{id}")]
+        [ProducesResponseType(typeof(PictureDTO), 200)]
+        public async Task<IActionResult> UpdatePictureNotConf([FromRoute]int id, [FromBody]Pictures pic)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var person = await _helperService.GetById<PersonInfo>("PersonInfo", "*", id);
+
+            if (person != null && (person.Id == pic.AutorId || User.IsInRole("Admin")))
+            {
+                var res = await _commonService.UpdatePictureAsync(id, pic);
+
+                return Ok(res);
+            }
+
+            return BadRequest("Что-то не так");
+        }
+
+        [HttpPost("pictures/{id}/pic")]
+        public async Task<IActionResult> LoadImageForPicture([FromRoute]int id)
+        {
+            var file = Request.Form.Files;
+            if (file != null)
+            {
+                await _commonService.SaveImagePicture(id, file[0]);
+                return Ok();
+            }
+            return BadRequest("Загрузка не прошла");
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("pictures/{id}/conf")]
+        public async Task<IActionResult> ConfirmPicture([FromRoute]int id, [FromQuery]bool yes)
+        {
+            await _commonService.ConfirmUpdatePicture(id, yes);
+
+            return Ok();
+        }
+
+        [Authorize(Roles = "Autor, Admin")]
+        [HttpPost("pictures")]
+        public async Task<IActionResult> CreatePicture([FromBody]Pictures pic)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            await _commonService.CreatePicture(pic);
+
+            return Ok();
         }
 
         #endregion

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "71c697aa8196a9fc05574dc871551169d5161755"
+    "signature": "cadc92f0aaeb08b279aa630a9d4b00a25d15dc74"
   },
   "compilationOptions": {
     "defines": [
@@ -408,6 +408,37 @@
           "lib/netstandard1.6/NuGet.Frameworks.dll": {}
         }
       },
+      "SixLabors.Core/1.0.0-beta0006": {
+        "dependencies": {
+          "System.Buffers": "4.5.0",
+          "System.Memory": "4.5.1",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/SixLabors.Core.dll": {
+            "assemblyVersion": "0.1.0.0",
+            "fileVersion": "0.1.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.0/SixLabors.Core.dll": {}
+        }
+      },
+      "SixLabors.ImageSharp/1.0.0-beta0005": {
+        "dependencies": {
+          "SixLabors.Core": "1.0.0-beta0006",
+          "System.Runtime.CompilerServices.Unsafe": "4.5.1"
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/SixLabors.ImageSharp.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.1/SixLabors.ImageSharp.dll": {}
+        }
+      },
       "Swashbuckle.AspNetCore/3.0.0": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
@@ -621,7 +652,8 @@
           "AutoMapper": "7.0.1",
           "AutoMapper.DataReaderMapper": "1.0.6136.33530",
           "DAL": "1.0.0",
-          "Microsoft.Extensions.Configuration": "2.1.1"
+          "Microsoft.Extensions.Configuration": "2.1.1",
+          "SixLabors.ImageSharp": "1.0.0-beta0005"
         },
         "runtime": {
           "BLL.dll": {}
@@ -3727,6 +3759,20 @@
       "sha512": "sha512-/VaEPsEgj3p5YPLLxbYc6rB8gYIPf+8wCWOAlAe3l/SP0DXcefZ58uJer1ToBKIpwbPN5LkgTXtvilze5UJoYQ==",
       "path": "nuget.frameworks/4.7.0",
       "hashPath": "nuget.frameworks.4.7.0.nupkg.sha512"
+    },
+    "SixLabors.Core/1.0.0-beta0006": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AY/aNmjmsU6OftAA8ownjARTy7A8+Q+HjJMAOpIwhIxacOIGF8JhwUDAZw/g70+hfcjkbCzIKYwEF1vdanWz/g==",
+      "path": "sixlabors.core/1.0.0-beta0006",
+      "hashPath": "sixlabors.core.1.0.0-beta0006.nupkg.sha512"
+    },
+    "SixLabors.ImageSharp/1.0.0-beta0005": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mcaaf6v9WF1r25gmBQujFu/S20yotMRJSwqUaWj4LNS7OUUtBejPmfaWnejGeSQgZWDR4qjNTXY/namjDAgQiA==",
+      "path": "sixlabors.imagesharp/1.0.0-beta0005",
+      "hashPath": "sixlabors.imagesharp.1.0.0-beta0005.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/3.0.0": {
       "type": "package",

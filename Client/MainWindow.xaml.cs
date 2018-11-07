@@ -1,5 +1,6 @@
 ﻿using Client.UserControls;
 using Client.Views;
+using Client.Windows;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,28 +27,32 @@ namespace Client
     public partial class MainWindow : Window
     {
         private const string AppPath = "https://localhost:44323/";
-        private static string token;
+        public static string token;
         private PictureGrid PictureGr;
         private AutorGrid AutorGr;
-        private Grid gr = Grid.PictureGrid;
+        public static Grid gr = Grid.PictureGrid;
+        public static int? Id = null;
+        public static string Role;
 
-        public enum Grid { PictureGrid, AutorGrid};
+        public enum Grid { PictureGrid, AutorGrid, Other};
 
         public MainWindow()
         {
-            
             InitializeComponent();
+            AddLogInGrid();
             AddPictureGrid();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void AddLogInGrid()
         {
-            AddPictureGrid();
+            LogControl log = new LogControl(AppPath, LogInGrid, CommonGrid);
+            log.Margin = new Thickness(0, 0, 5, 0);
+            LogInGrid.Children.Add(log);
         }
 
         private void AddPictureGrid()
         {
-            PictureGr = new PictureGrid(token, CommonGrid);
+            PictureGr = new PictureGrid(AppPath, CommonGrid, false);
             PictureGr.Margin = new Thickness(10d, 0, 10, 0);
             CommonGrid.Children.Add(PictureGr);
         }
@@ -70,6 +75,7 @@ namespace Client
                 CommonGrid.Children.Clear();
                 AddPictureGrid();
                 gr = Grid.PictureGrid;
+                LogProf.grid = LogProf.Grids.Nothing;
             }
         }
 
@@ -80,7 +86,9 @@ namespace Client
                 CommonGrid.Children.Clear();
                 AddAutorGrid();
                 gr = Grid.AutorGrid;
+                LogProf.grid = LogProf.Grids.Nothing;
             }
         }
+
     }
 }

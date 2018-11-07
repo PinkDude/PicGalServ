@@ -65,12 +65,11 @@ namespace Client.UserControls
 
                     if (response.IsSuccessStatusCode)
                     {
-                        //MainGrid.Children.Remove(PictureGr);
                         var json = await response.Content.ReadAsStringAsync();
 
                         var per = await JsonConvert.DeserializeObjectAsync<Views.Picture>(json);
 
-                        UserControls.Picture pic = new UserControls.Picture(MainGrid, per.Id, per.AutorId, AppPath);
+                        UserControls.Picture pic = new UserControls.Picture(MainGrid, per.Id, per.AutorId, per.GenreId, AppPath, !per.Status);
 
                         Uri uri = new Uri(AppPath + per.PicturePath);
                         BitmapImage bm = new BitmapImage(uri);
@@ -82,10 +81,13 @@ namespace Client.UserControls
 
                         pic.Name.Text = per.Name;
 
+                        if (!per.Status)
+                            pic.Status.Visibility = Visibility.Visible;
+
                         pic.Autor.Text = per.Autor.FullName;
                         
-                        pic.Genre.Text = per.Genre;
-                        pic.Date.Text = per.Date.ToShortDateString();
+                        pic.Genre.SelectedIndex = per.GenreId - 1;
+                        pic.Date.Text = per.Date?.ToShortDateString();
                         pic.Description.Text = per.Description;
 
                         pic.Margin = new Thickness(20d, 0, 20, 0);
