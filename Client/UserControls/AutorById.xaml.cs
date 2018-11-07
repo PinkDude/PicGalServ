@@ -167,7 +167,10 @@ namespace Client.UserControls
                 try
                 {
                     var response = new WebClient().UploadFile(AppPath + $"api/picture/person-info/{MainWindow.Id}/pic", "POST", openFileDialog1.FileName);
-                    await GetAutor();
+                    var s = await GetAutor();
+                    MainWindow.logGrid.Children.Clear();
+                    LogProf lp = new LogProf(AppPath, s, mainGrid);
+                    MainWindow.logGrid.Children.Add(lp);
                 }
                 catch (Exception ex)
                 {
@@ -176,7 +179,7 @@ namespace Client.UserControls
             }
         }
 
-        private async Task GetAutor()
+        private async Task<string> GetAutor()
         {
             try
             {
@@ -206,7 +209,10 @@ namespace Client.UserControls
                         LastName.Text = per.LastName;
                         MiddleName.Text = per.MiddleName;
                         Date.Text = per.Birthday?.ToShortDateString();
+
+                        return per.Photo;
                     }
+                    return null;
                 }
             }
             catch (Exception ex)

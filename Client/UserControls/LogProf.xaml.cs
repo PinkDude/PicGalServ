@@ -26,23 +26,21 @@ namespace Client.UserControls
     {
         private readonly string AppPath;
         private readonly string Photo;
-        private readonly string email;
         private readonly Grid commonGrid;
 
         public static Grids grid = Grids.Nothing;
 
         public enum Grids { Prodile, Pictures, AddPicture, ConfChanges, Nothing };
 
-        public LogProf(string app, string mail, string ph, Grid com)
+        public LogProf(string app, string ph, Grid com)
         {
             AppPath = app;
             Photo = ph;
-            email = mail;
             commonGrid = com;
 
             InitializeComponent();
 
-            Email.Text = email;
+            Email.Text = MainWindow.Mail;
 
             Uri uri = new Uri(AppPath + Photo);
             BitmapImage bm = new BitmapImage(uri);
@@ -68,7 +66,7 @@ namespace Client.UserControls
             if (grid != Grids.Prodile)
             {
                 await GetAutor();
-                MainWindow.gr = MainWindow.Grid.Other;
+                MainWindow.gr = MainWindow.Griding.Other;
                 grid = Grids.Prodile;
             }
         }
@@ -126,7 +124,7 @@ namespace Client.UserControls
                 pic.Margin = new Thickness(10, 0, 10, 0);
                 commonGrid.Children.Add(pic);
                 grid = Grids.AddPicture;
-                MainWindow.gr = MainWindow.Grid.Other;
+                MainWindow.gr = MainWindow.Griding.Other;
             }
         }
 
@@ -139,7 +137,7 @@ namespace Client.UserControls
                 commonGrid.Children.Clear();
                 commonGrid.Children.Add(picGr);
                 grid = Grids.Pictures;
-                MainWindow.gr = MainWindow.Grid.Other;
+                MainWindow.gr = MainWindow.Griding.Other;
             }
         }
 
@@ -153,7 +151,7 @@ namespace Client.UserControls
                 commonGrid.Children.Add(picGr);
                 grid = Grids.Pictures;
                 grid = Grids.ConfChanges;
-                MainWindow.gr = MainWindow.Grid.Other;
+                MainWindow.gr = MainWindow.Griding.Other;
             }
         }
     }

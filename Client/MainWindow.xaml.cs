@@ -30,17 +30,20 @@ namespace Client
         public static string token;
         private PictureGrid PictureGr;
         private AutorGrid AutorGr;
-        public static Grid gr = Grid.PictureGrid;
+        public static Griding gr = Griding.PictureGrid;
         public static int? Id = null;
         public static string Role;
+        public static Grid logGrid;
+        public static string Mail;
 
-        public enum Grid { PictureGrid, AutorGrid, Other};
+        public enum Griding { PictureGrid, AutorGrid, Other};
 
         public MainWindow()
         {
             InitializeComponent();
             AddLogInGrid();
             AddPictureGrid();
+            logGrid = LogInGrid;
         }
 
         private void AddLogInGrid()
@@ -70,22 +73,22 @@ namespace Client
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            if (gr != Grid.PictureGrid)
+            if (gr != Griding.PictureGrid)
             {
                 CommonGrid.Children.Clear();
                 AddPictureGrid();
-                gr = Grid.PictureGrid;
+                gr = Griding.PictureGrid;
                 LogProf.grid = LogProf.Grids.Nothing;
             }
         }
 
         private void Autors_Click(object sender, RoutedEventArgs e)
         {
-            if(gr != Grid.AutorGrid)
+            if(gr != Griding.AutorGrid)
             {
                 CommonGrid.Children.Clear();
                 AddAutorGrid();
-                gr = Grid.AutorGrid;
+                gr = Griding.AutorGrid;
                 LogProf.grid = LogProf.Grids.Nothing;
             }
         }

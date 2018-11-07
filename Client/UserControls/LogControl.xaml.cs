@@ -42,8 +42,9 @@ namespace Client.UserControls
             MainWindow.token = token.Access_token;
             MainWindow.Id = token.Id;
             MainWindow.Role = token.Role.Replace(" ", "");
+            MainWindow.Mail = token.Username;
 
-            LogProf prof = new LogProf(AppPath, token.Username, token.Photo, commonGrid);
+            LogProf prof = new LogProf(AppPath, token.Photo, commonGrid);
             LogGrid.Children.Add(prof);
 
             LogGrid.Children.Remove(this);
